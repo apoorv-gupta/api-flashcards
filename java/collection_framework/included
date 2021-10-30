@@ -16,7 +16,6 @@ java/util/NavigableMap.html
 java/util/ArrayDeque.html
 java/util/EnumMap.html
 java/util/NavigableSet.html
-java/util/StringJoiner.html
 java/util/ArrayList.html
 java/util/EnumSet.html
 java/util/Arrays.html
@@ -39,6 +38,3 @@ java/util/Collections.html
 java/util/Comparator.html
 java/util/WeakHashMap.html
 java/util/HashSet.html
-java/util/Hashtable.html
-java/lang/String.html
-java/lang/StringBuilder.html
