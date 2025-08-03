@@ -6,6 +6,10 @@ You can then create a new Deck in Anki by importing that CSV file. It is recomme
 
 TODO: Add runtime complexity information for each method
 
+## Tricks for Anki
+* Press @ to suspend the current Anki card. It won't show up again until you manually select it. This is useful for duplicate or low-value cards
+* 
+
 ## Updating the code:
 * If the HTML for the Java pages has changed, the output of this python file could break. Use:
     * Phind or another engine to write the bs4 code to extract the methods information
