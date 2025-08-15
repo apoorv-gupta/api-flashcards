@@ -79,6 +79,15 @@ TODO: Add runtime complexity information for each method
 * https://adventofcode.com/2024 has puzzles
 * TODO: build a java project using modules or maven or gradle etc, maybe the graph database from https://aosabook.org/en/
 
+## Learning Python (this should be a separate directory)
+* You can use pythonanywhere.com to get a free Linux server to update & run these scripts
+* https://medium.com/cheat-sheets/cheat-sheet-for-competitive-programming-with-python-3-0477b685d8cd
+* https://www.geeksforgeeks.org/python/python-sorted-containers-an-introduction/
+* https://www.pythoncheatsheet.org/cheatsheet/
+* http://numpy.org/doc/stable/user/absolute_beginners.html
+* https://github.com/gregmalcolm/python_koans
+* https://hackr.io/tutorials/learn-python : 19 hour course, unnecessary
+  
 ## Creating an Anki Deck:
 * Download Anki: https://apps.ankiweb.net/
 * Find current Java version supported by CodePair, Hackerrank & CodeSignal (let's say 21)
