@@ -85,6 +85,10 @@ TODO: Add runtime complexity information for each method
 * https://www.geeksforgeeks.org/python/python-sorted-containers-an-introduction/
 * https://www.pythoncheatsheet.org/cheatsheet/
 * http://numpy.org/doc/stable/user/absolute_beginners.html
+* Graphlib can do a topological sort for you
+* SciPy.sparse can do Dijkstra’s
+* Collections
+* itertools
 * https://github.com/gregmalcolm/python_koans
 * https://hackr.io/tutorials/learn-python : 19 hour course, unnecessary
   
