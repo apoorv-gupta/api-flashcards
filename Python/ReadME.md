@@ -11,12 +11,32 @@
 * https://www.geeksforgeeks.org/python/python-sorted-containers-an-introduction/
 * https://www.pythoncheatsheet.org/cheatsheet/
 * http://numpy.org/doc/stable/user/absolute_beginners.html
-* Graphlib can do a topological sort for you
+* [Graphlib](https://docs.python.org/3/library/graphlib.html) can do a topological sort for you
 * SciPy.sparse can do Dijkstra’s
-* Collections
-* itertools
-* Recursion with memoization: Use functools.lru_cache and set maxsize to whatever amount you think is appropriate. When the cache gets full, it will then discard cached values
+* [Collections](https://docs.python.org/3/library/collections.html)
+* [Itertools](https://docs.python.org/3/library/itertools.html)
+* Recursion with memoization: Use [functools.lru_cache](https://docs.python.org/3/library/functools.html#functools.lru_cache) and set maxsize to whatever amount you think is appropriate. When the cache gets full, it will then discard cached values
 
 ## Learning API development with Python
 * FastAPI
 * Flask
+
+## Snippets
+### Default values in a dictionary
+If you want to use a dictionary to count occurences of a word, you will first need to check if the word exists in the dictionary. 
+So, you protect yourself by catching keys that have not been added to the dictionary, and pre-add them. You could also use get() to protect yourself, as:
+```
+animals_dict = {}
+for animal in animals_list:
+  animals_dict[animal] = animals_dict.get(animal,0) + 1
+```
+That works pretty well.
+
+Defaultdict basically allows you to initialize unseen keys using a function, so we could rewrite the above as:
+
+```
+from collections import defaultdict
+animals_dict = defaultdict(int) # or, equivalently, defaultdict(lambda :0)
+for animal in animals_list:
+  animals_dict[animal] += 1
+```
