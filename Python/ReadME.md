@@ -40,3 +40,28 @@ animals_dict = defaultdict(int) # or, equivalently, defaultdict(lambda :0)
 for animal in animals_list:
   animals_dict[animal] += 1
 ```
+
+### You can use Dictionaries to hold objects instead of defining classes
+
+### Defining classes
+```
+from dataclasses import dataclass
+from typing import NamedTuple
+
+# Note that the type hints are used only by static analysis tools. Python will let you pass any object here
+class Person(NamedTuple):  # immutable
+  name: str
+  age: int
+
+
+@dataclass  #  automatically generates special methods like __init__, __repr__, __eq__ etc
+class Person:
+  name: str
+  age: int
+
+person = Person(name="Mike", age=45)
+print(f"X type: {type(person.name)}")
+```
+
+
+
