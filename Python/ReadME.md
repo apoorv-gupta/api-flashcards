@@ -20,6 +20,25 @@
 ## Learning API development with Python
 * FastAPI
 * Flask
+* https://fastapi.tiangolo.com/advanced/websockets/#create-a-websocket
+
+## Concurrency in Python
+Start with a list of problems you want to solve. Then determine the correct programming paradigm, then pick the library.
+Python has no inbuilt equivalent to the actor model (goroutines + channels).  
+Python released a new binary with Python 3.13 that does not include the GIL. The default version includes the GIL, so assume it's still there.  
+Python has libraries to support multiple paradigms:   
+1. Multiprocessing (true parallelism),
+2. Thread pools / Executor frameworks (concurrent.futures.ThreadPoolExecutor, ProcessPoolExecutor)
+3. asyncio (high I/O concurrency), 
+4. data-parallel libraries (Joblib, NumPy, PyTorch),
+5. structured concurrency (asyncio.TaskGroup (Python 3.11+))
+6. Shared-memory threading (threading, subject to the GIL)
+
+Resources:
+* https://superfastpython.com/learning-paths/
+* https://superfastpython.com/python-concurrency-choose-api/ has a lot of rave reviews on Reddit
+* https://www.xanthium.in/creating-threads-sharing-synchronizing-data-using-queue-lock-semaphore-python#src
+* https://pymotw.com/3/concurrent.futures/index.html
 
 ## Snippets
 ### Default values in a dictionary
