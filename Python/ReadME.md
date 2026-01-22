@@ -2,6 +2,11 @@
 ## Setting up a Python  environment
 * You can use pythonanywhere.com to get a free Linux server to update & run these scripts
 
+## Syntax cheatsheet 
+* https://devhints.io/python
+* https://roadmap.sh/python
+
+
 ## General Programming in Python
 * https://github.com/gregmalcolm/python_koans
 * https://hackr.io/tutorials/learn-python : 19 hour course, unnecessary
