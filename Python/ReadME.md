@@ -12,6 +12,7 @@
 * https://hackr.io/tutorials/learn-python : 19 hour course, unnecessary
 
 ## Algorithmic coding with Python
+* Inbuilt collections: https://docs.python.org/3/library/stdtypes.html
 * https://medium.com/cheat-sheets/cheat-sheet-for-competitive-programming-with-python-3-0477b685d8cd
 * https://www.geeksforgeeks.org/python/python-sorted-containers-an-introduction/
 * https://www.pythoncheatsheet.org/cheatsheet/
@@ -40,7 +41,9 @@ Python has libraries to support multiple paradigms:
 6. Shared-memory threading (threading, subject to the GIL)
 
 Resources:
-* https://superfastpython.com/learning-paths/
+* https://superfastpython.com/learning-paths/ OR https://superfastpython.com/tutorial-archive.html 
+* https://algomaster.io/learn/concurrency-interview
+* https://codesignal.com/learn/courses/concurrency-async-io
 * https://superfastpython.com/python-concurrency-choose-api/ has a lot of rave reviews on Reddit
 * https://www.xanthium.in/creating-threads-sharing-synchronizing-data-using-queue-lock-semaphore-python#src
 * https://pymotw.com/3/concurrent.futures/index.html
