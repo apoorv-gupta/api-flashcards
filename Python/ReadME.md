@@ -29,16 +29,20 @@
 * https://fastapi.tiangolo.com/advanced/websockets/#create-a-websocket
 
 ## Concurrency in Python
+[SuperFastPython](https://superfastpython.com/python-concurrency-choose-api/) is an amazing intro. I have my notes on [Google docs](https://docs.google.com/document/d/1PC2y8loXZl0buptQjEV-nrxhVpVLAhQNANQZpXbWJI8/edit?tab=t.m3o8i6jwtzt5).
+
 Start with a list of problems you want to solve. Then determine the correct programming paradigm, then pick the library.
 Python has no inbuilt equivalent to the actor model (goroutines + channels).  
-Python released a new binary with Python 3.13 that does not include the GIL. The default version includes the GIL, so assume it's still there.  
-Python has libraries to support multiple paradigms:   
-1. Multiprocessing (true parallelism),
-2. Thread pools / Executor frameworks (concurrent.futures.ThreadPoolExecutor, ProcessPoolExecutor)
-3. asyncio (high I/O concurrency), 
-4. data-parallel libraries (Joblib, NumPy, PyTorch),
-5. structured concurrency (asyncio.TaskGroup (Python 3.11+))
-6. Shared-memory threading (threading, subject to the GIL)
+Python released a new binary with CPython 3.13 that can disable the GIL. The default version includes the GIL, so assume it's still there.  
+Python has libraries to support multiple paradigms:
+1.Threading module (is primitive, but interviews focus on this)
+2. ThreadLocal, RLock, Semaphore, Condition, Event, Timer Thread, Thread Barrier, Queue for blocking reads,
+Multiprocessing (true parallelism),
+3. Thread pools / Executor frameworks (concurrent.futures.ThreadPoolExecutor, ProcessPoolExecutor)
+4. asyncio (high I/O concurrency using co-routines. Don't use with requests bc that's synchronous calls), 
+5. data-parallel libraries (Joblib, NumPy, PyTorch),
+6. structured concurrency (asyncio.TaskGroup (Python 3.11+))
+7. Shared-memory threading (threading, subject to the GIL)
 
 Resources:
 * https://superfastpython.com/learning-paths/ OR https://superfastpython.com/tutorial-archive.html 
@@ -47,6 +51,74 @@ Resources:
 * https://superfastpython.com/python-concurrency-choose-api/ has a lot of rave reviews on Reddit
 * https://www.xanthium.in/creating-threads-sharing-synchronizing-data-using-queue-lock-semaphore-python#src
 * https://pymotw.com/3/concurrent.futures/index.html
+
+### Best practices for concurrency
+from https://superfastpython.com/threading-in-python/ 
+* Use context managers — Prefer with lock: / with semaphore: so synchronization primitives are released even if an exception occurs.
+* You can also use finally if you are reading/writing from queues
+* Use timeouts when waiting — Put timeouts on blocking operations such as lock.acquire(), thread.join(), and condition.wait() so threads cannot wait forever.
+* Use a mutex to protect critical sections — Protect shared mutable state with threading.Lock to prevent race conditions.
+* Acquire locks in a consistent order — If code needs multiple locks, always acquire them in the same order to reduce the risk of deadlocks.
+
+## Requests Library
+Sending a request to reboot a server:
+```
+def reboot_server(port):
+    try:
+        response = requests.post(
+            f"{BASE_URL}/reboot",
+            json={"port": port},
+            timeout=TIMEOUT_SECONDS,
+        )
+
+        response.raise_for_status()
+        data = response.json()
+
+        result = data.get("result")
+        reason = data.get("reason", "")
+
+        print(f"{serial}: {result} - {reason}")
+
+    except requests.Timeout:
+        print(f"{serial}: failed - request timed out")
+
+    except requests.ConnectionError:
+        print(f"{serial}: failed - could not connect to server")
+
+    except requests.HTTPError as e:
+        print(f"{serial}: failed - HTTP {e.response.status_code}")
+
+    except requests.JSONDecodeError:
+        print(f"{serial}: failed - invalid JSON response")
+```
+
+Sending a request with OAuth token in the header
+
+```
+import requests
+
+# 1. Get OAuth token
+token_response = requests.post(
+    "https://auth.example.com/oauth/token",
+    data={
+        "grant_type": "client_credentials",
+        "client_id": "my-client-id",
+        "client_secret": "my-client-secret",
+    },
+)
+
+token = token_response.json()["access_token"]
+
+# 2. Call the API using the token
+r = requests.post(
+    "http://localhost:3000",
+    json={"message": "whats your name"},
+    headers={"Authorization": f"Bearer {token}"},
+)
+
+name = r.json()["reply"]
+print(f"hi {name.lower()}")
+```
 
 ## Snippets
 ### Default values in a dictionary
@@ -89,6 +161,15 @@ class Person:
 person = Person(name="Mike", age=45)
 print(f"X type: {type(person.name)}")
 ```
+Implement serialization:
+class Result:
+    def __init__(self, job_id: int, result_code: int):
+        self.job_id = job_id
+        self.result_code = result_code
+
+    def __str__(self):
+        return f"code = {self.result_code}"
+
 
 
 
