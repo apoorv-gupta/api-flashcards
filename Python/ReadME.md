@@ -8,6 +8,7 @@
 
 
 ## General Programming in Python
+* https://realpython.com/ref/builtin-types/
 * https://github.com/gregmalcolm/python_koans
 * https://hackr.io/tutorials/learn-python : 19 hour course, unnecessary
 
@@ -35,14 +36,14 @@ Start with a list of problems you want to solve. Then determine the correct prog
 Python has no inbuilt equivalent to the actor model (goroutines + channels).  
 Python released a new binary with CPython 3.13 that can disable the GIL. The default version includes the GIL, so assume it's still there.  
 Python has libraries to support multiple paradigms:
-1.Threading module (is primitive, but interviews focus on this)
+1. Threading module (is primitive, but interviews focus on this)
 2. ThreadLocal, RLock, Semaphore, Condition, Event, Timer Thread, Thread Barrier, Queue for blocking reads,
-Multiprocessing (true parallelism),
-3. Thread pools / Executor frameworks (concurrent.futures.ThreadPoolExecutor, ProcessPoolExecutor)
-4. asyncio (high I/O concurrency using co-routines. Don't use with requests bc that's synchronous calls), 
-5. data-parallel libraries (Joblib, NumPy, PyTorch),
-6. structured concurrency (asyncio.TaskGroup (Python 3.11+))
-7. Shared-memory threading (threading, subject to the GIL)
+3. Multiprocessing (true parallelism),
+4. Thread pools / Executor frameworks (concurrent.futures.ThreadPoolExecutor, ProcessPoolExecutor)
+5. asyncio (high I/O concurrency using co-routines. Don't use with requests bc that's synchronous calls), 
+6. data-parallel libraries (Joblib, NumPy, PyTorch),
+7. structured concurrency (asyncio.TaskGroup (Python 3.11+))
+8. Shared-memory threading (threading, subject to the GIL)
 
 Resources:
 * https://superfastpython.com/learning-paths/ OR https://superfastpython.com/tutorial-archive.html 
@@ -60,7 +61,29 @@ from https://superfastpython.com/threading-in-python/
 * Use a mutex to protect critical sections — Protect shared mutable state with threading.Lock to prevent race conditions.
 * Acquire locks in a consistent order — If code needs multiple locks, always acquire them in the same order to reduce the risk of deadlocks.
 
-## Requests Library
+## Requests/httpx/aiohttp Library
+Requests is an old library that makes synchronous calls. Never call it inside asyncio co-routines bc it will block the entire thread. \
+We use requests on Coderpad because it's the only one that's [pre-installed](https://coderpad.io/languages/python-3/) \
+Httpx is a similar replacement for requests but it makes async requests. With HTTPX async, methods like client.get() and client.post() return coroutines, not Future objects.
+
+```
+import httpx
+
+async def main():
+    async with httpx.AsyncClient() as client:
+        response = await client.get("https://example.com")
+        print(response.text)
+```
+
+If you want something more like a future/task that runs concurrently, wrap the coroutine:
+```
+task = asyncio.create_task(client.get(url))
+response = await task
+```
+
+Tutorial: https://realpython.com/python-requests/
+
+
 Sending a request to reboot a server:
 ```
 def reboot_server(port):
